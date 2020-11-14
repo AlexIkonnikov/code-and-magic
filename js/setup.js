@@ -1,8 +1,11 @@
 'use strict';
+let ESC_CODE = 27;
+let ENTER_CODE = 13;
 
 let setup = document.querySelector('.setup');
+let setupOpen = document.querySelector('.setup-open');
+let setupClose = setup.querySelector('.setup-close');
 
-setup.classList.remove('hidden');
 let pool = document.querySelector('.setup-similar-list');
 let template = document.querySelector('#similar-wizard-template').content;
 let names = ['Иван', 'Хуан Себастья', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
@@ -60,4 +63,32 @@ let generateWizards = function (array) {
 };
 
 generateWizards(createArrayWizards());
+
+function openSetupPopup () {
+    setup.classList.remove('hidden');
+    document.addEventListener('keydown', popupEscPress);
+}
+
+function closeSetupPopup () {
+    setup.classList.add('hidden');
+    document.removeEventListener('keydown', popupEscPress);
+}
+
+function popupEscPress (evt) {
+    if (evt.keyCode === ESC_CODE) {
+        closeSetupPopup();
+    }
+}
+
+function popupEnterPress (evt) {
+    if (evt.keyCode === ENTER_CODE) {
+        openSetupPopup ();
+    }
+}
+
+setupOpen.addEventListener('keydown', popupEnterPress);
+
+setupOpen.addEventListener('click', openSetupPopup);
+
+setupClose.addEventListener('click', closeSetupPopup);
 
