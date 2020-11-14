@@ -6,6 +6,7 @@ let setup = document.querySelector('.setup');
 let setupOpen = document.querySelector('.setup-open');
 let setupClose = setup.querySelector('.setup-close');
 let inputName = setup.querySelector('.setup-user-name');
+let coatColor = setup.querySelector('.setup-wizard .wizard-coat');
 
 let pool = document.querySelector('.setup-similar-list');
 let template = document.querySelector('#similar-wizard-template').content;
@@ -109,3 +110,13 @@ setupClose.addEventListener('keydown', function (evt) {
         closeSetupPopup();
     }
 });
+/*-----------------------------------------------------------------------------------*/
+
+function changeColorCoat () {
+    let randColor = generateRandomNun( coatColors.length - 1 ) ;
+    coatColor.style.fill = coatColors[randColor];
+};
+
+coatColor.addEventListener('click', changeColorCoat);
+
+
