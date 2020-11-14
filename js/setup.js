@@ -7,6 +7,14 @@ let setupOpen = document.querySelector('.setup-open');
 let setupClose = setup.querySelector('.setup-close');
 let inputName = setup.querySelector('.setup-user-name');
 let coatColor = setup.querySelector('.setup-wizard .wizard-coat');
+let eyesColor = setup.querySelector('.setup-wizard .wizard-eyes');
+let fireballColor = setup.querySelector('.setup-fireball-wrap');
+
+/*-Скрытые поля форм-*/
+let inputCoatColor = setup.querySelector('.hidden-coat-color').value;
+let inputEyesColor = setup.querySelector('.hidden-eyes-color').value;
+let inputFireballColor = setup.querySelector('.hidden-fireball-color').value;
+
 
 let pool = document.querySelector('.setup-similar-list');
 let template = document.querySelector('#similar-wizard-template').content;
@@ -14,6 +22,7 @@ let names = ['Иван', 'Хуан Себастья', 'Мария', 'Крист�
 let surnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 let coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 let eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+let fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 let generateRandomNun = function (max) {
 
@@ -113,10 +122,23 @@ setupClose.addEventListener('keydown', function (evt) {
 /*-----------------------------------------------------------------------------------*/
 
 function changeColorCoat () {
-    let randColor = generateRandomNun( coatColors.length - 1 ) ;
+    let randColor = generateRandomNun( coatColors.length - 1 );
     coatColor.style.fill = coatColors[randColor];
+    inputCoatColor = coatColors[randColor];
+};
+
+function changeColorEyes () {
+    let randColor = generateRandomNun( eyesColors.length - 1 );
+    eyesColor.style.fill = eyesColors[randColor];
+    inputEyesColor = eyesColors[randColor];
+};
+
+function changeColorfireball () {
+    let randColor = generateRandomNun( fireballColors.length - 1 );
+    fireballColor.style.background = fireballColors[randColor];
+    inputFirebalsColor = fireballColors[randColor];
 };
 
 coatColor.addEventListener('click', changeColorCoat);
-
-
+eyesColor.addEventListener('click', changeColorEyes);
+fireballColor.addEventListener('click', changeColorfireball);
