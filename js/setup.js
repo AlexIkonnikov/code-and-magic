@@ -15,7 +15,6 @@ let inputCoatColor = setup.querySelector('.hidden-coat-color').value;
 let inputEyesColor = setup.querySelector('.hidden-eyes-color').value;
 let inputFireballColor = setup.querySelector('.hidden-fireball-color').value;
 
-
 let pool = document.querySelector('.setup-similar-list');
 let template = document.querySelector('#similar-wizard-template').content;
 let names = ['Иван', 'Хуан Себастья', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
@@ -81,6 +80,8 @@ function openSetupPopup () {
     setup.classList.remove('hidden');
     setupOpen.removeEventListener('keydown', popupEnterPress);
     document.addEventListener('keydown', popupEscPress);
+    document.setupStartX = setup.offsetLeft;
+    document.setupStartY = setup.offsetTop;
 }
 
 function closeSetupPopup () {
@@ -89,8 +90,9 @@ function closeSetupPopup () {
         setup.classList.add('hidden');
         setupOpen.addEventListener('keydown', popupEnterPress);
         document.removeEventListener('keydown', popupEscPress);
+        setup.style.top = document.setupStartY + 'px';
+        setup.style.left = document.setupStartX + 'px';
     }
-
 }
 
 function popupEscPress (evt) {
@@ -136,9 +138,61 @@ function changeColorEyes () {
 function changeColorfireball () {
     let randColor = generateRandomNun( fireballColors.length - 1 );
     fireballColor.style.background = fireballColors[randColor];
-    inputFirebalsColor = fireballColors[randColor];
+    inputFireballColor = fireballColors[randColor];
 };
 
 coatColor.addEventListener('click', changeColorCoat);
 eyesColor.addEventListener('click', changeColorEyes);
 fireballColor.addEventListener('click', changeColorfireball);
+
+
+/*------------------------Drag and Drop-----------------------*/
+
+let userPopupImg = setup.querySelector('.upload input');
+
+
+userPopupImg.addEventListener('mousedown', function(evt) {
+
+    evt.preventDefault();
+    
+    let startСoordinates = {
+        x: evt.clientX,
+        y: evt.clientY,
+    }
+
+    var drag = false;
+
+    function onMouseMove (moveEvt) {
+        moveEvt.preventDefault();
+        let shift = {
+            x: startСoordinates.x - moveEvt.clientX,
+            y: startСoordinates.y - moveEvt.clientY
+        };
+
+        startСoordinates = {
+            x: moveEvt.clientX,
+            y: moveEvt.clientY
+        };
+
+        setup.style.top = (setup.offsetTop - shift.y) + 'px';
+        setup.style.left = (setup.offsetLeft - shift.x) + 'px';
+        drag = true;
+    }
+
+    function onMouseUp(evtUp) {
+        evtUp.preventDefault();
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+
+        if (drag) {
+            userPopupImg.addEventListener('click', clickPreventDefault);
+            function clickPreventDefault (evt) {
+                evt.preventDefault();
+                userPopupImg.removeEventListener('click', clickPreventDefault);
+            }
+        }
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+});
