@@ -1,5 +1,6 @@
 'use strict';
 
+(function(){
 var WIDTH_CLOUD = 420;
 var HEIGHT_CLOUD = 270;
 var GAP = 10;
@@ -42,7 +43,7 @@ var sortTimes = function (time) {
    return time[0];
 }
 
-var renderStatistics = function (ctx, names, times) {
+window.renderStatistics = function (ctx, names, times) {
 
     renderCloud(ctx, 100 + GAP, 10 + GAP, 'rgba(0, 0, 0, 0.7)');
     renderCloud(ctx, 100, 10, 'white');
@@ -74,3 +75,6 @@ var renderStatistics = function (ctx, names, times) {
 
     }
 };
+
+})();
+

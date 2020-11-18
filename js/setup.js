@@ -8,12 +8,6 @@ let setupClose = setup.querySelector('.setup-close');
 let inputName = setup.querySelector('.setup-user-name');
 let coatColor = setup.querySelector('.setup-wizard .wizard-coat');
 let eyesColor = setup.querySelector('.setup-wizard .wizard-eyes');
-let fireballColor = setup.querySelector('.setup-fireball-wrap');
-
-/*-Скрытые поля форм-*/
-let inputCoatColor = setup.querySelector('.hidden-coat-color').value;
-let inputEyesColor = setup.querySelector('.hidden-eyes-color').value;
-let inputFireballColor = setup.querySelector('.hidden-fireball-color').value;
 
 
 let pool = document.querySelector('.setup-similar-list');
@@ -22,7 +16,6 @@ let names = ['Иван', 'Хуан Себастья', 'Мария', 'Крист�
 let surnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 let coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 let eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
-let fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 let generateRandomNun = function (max) {
 
@@ -57,7 +50,7 @@ let createArrayWizards = function () {
 
 };
 
-let generateWizards = function (array) {
+let showWizards = function (array) {
 
     document.querySelector('.setup-similar').classList.remove('hidden');
     
@@ -73,72 +66,6 @@ let generateWizards = function (array) {
 
 };
 
-generateWizards(createArrayWizards());
-
-/*-----------------------------------------------------------------------------------*/
-
-function openSetupPopup () {
-    setup.classList.remove('hidden');
-    setupOpen.removeEventListener('keydown', popupEnterPress);
-    document.addEventListener('keydown', popupEscPress);
-}
-
-function closeSetupPopup () {
-
-    if (inputName !== document.activeElement) {
-        setup.classList.add('hidden');
-        setupOpen.addEventListener('keydown', popupEnterPress);
-        document.removeEventListener('keydown', popupEscPress);
-    }
-
-}
-
-function popupEscPress (evt) {
-
-    if (evt.keyCode === ESC_CODE && inputName !== document.activeElement) {
-        closeSetupPopup();
-    }
-
-}
-
-function popupEnterPress (evt) {
-
-    if (evt.keyCode === ENTER_CODE) {
-        openSetupPopup ();
-    }
-
-}
+showWizards(createArrayWizards());
 
 
-setupOpen.addEventListener('keydown', popupEnterPress);
-setupOpen.addEventListener('click', openSetupPopup);
-
-setupClose.addEventListener('click', closeSetupPopup);
-setupClose.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_CODE) {
-        closeSetupPopup();
-    }
-});
-/*-----------------------------------------------------------------------------------*/
-
-function changeColorCoat () {
-    let randColor = generateRandomNun( coatColors.length - 1 );
-    coatColor.style.fill = coatColors[randColor];
-    inputCoatColor = coatColors[randColor];
-};
-
-function changeColorEyes () {
-    let randColor = generateRandomNun( eyesColors.length - 1 );
-    eyesColor.style.fill = eyesColors[randColor];
-    inputEyesColor = eyesColors[randColor];
-};
-
-function changeColorfireball () {
-    let randColor = generateRandomNun( fireballColors.length - 1 );
-    fireballColor.style.background = fireballColors[randColor];
-    inputFirebalsColor = fireballColors[randColor];
-};
-
-coatColor.addEventListener('click', changeColorCoat);
-eyesColor.addEventListener('click', changeColorEyes);
-fireballColor.addEventListener('click', changeColorfireball);
