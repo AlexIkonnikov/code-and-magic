@@ -32,4 +32,37 @@
         xhr.send();
     }
 
+
+    window.save = function(onError, callback, data) {
+
+        let xhr = new XMLHttpRequest ();
+        let URL = "https://javascript.pages.academy/code-and-magick";
+        xhr.responseType = 'json';
+        xhr.timeout = 10000;
+
+        xhr.addEventListener('load', function() {
+
+            if (xhr.status === 200) {
+
+                callback('Данные успешно отправлены!');
+
+            } else {
+
+                console.log('Упс, кажется что-то пошло не так. Код ошибки' + xhr.status);
+
+            }
+        });
+
+        xhr.addEventListener('error', function() {
+            onError('Упс, кажется что-то пошло не так. Код ошибки: ' + xhr.status);
+        });
+
+        xhr.addEventListener('timeout', function() {
+            onError('Время ответа истекло. Код ошибки: ' + xhr.status);
+        });
+
+        xhr.open('post', URL);
+        xhr.send(data);
+    };
+
 })();

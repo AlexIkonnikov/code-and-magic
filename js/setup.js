@@ -1,12 +1,11 @@
 'use strict';
 
 (function() {
-
+    let popup = document.querySelector('.setup');
+    let form = document.querySelector('.setup-wizard-form');
+    let formData = new FormData(form);
     let pool = document.querySelector('.setup-similar-list');
     let template = document.querySelector('#similar-wizard-template').content;
-    let names = ['Иван', 'Хуан Себастья', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-    let surnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-
     let coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
     let eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
 
@@ -16,34 +15,6 @@
         return Math.floor(randNum);
 
     };
-
-    let selectRandomValue = function (arr) {
-
-        return arr[ generateRandomNun(arr.length-1) ];
-
-    };
-
-
-
-    /*let createArrayWizards = function () {
-
-        let arrayWizards = [];
-        
-        for (let i = 0; i <= 3; i++) {
-
-            let wizard = {
-                name: selectRandomValue(names) + ' ' + selectRandomValue(surnames),
-                coatColor: selectRandomValue(coatColors),
-                eyesColor: selectRandomValue(eyesColors)
-            }
-
-            arrayWizards.push(wizard);
-
-        }
-
-        return arrayWizards;
-
-    };*/
 
     let showWizards = function (array) {
 
@@ -66,8 +37,11 @@
         console.log(message);
 
     }
+    
+    let onSuccses = function (message) {
+        console.log(message)
+    }
 
-    /*showWizards(createArrayWizards());*/
 
     window.setup = {
         'coatColors': coatColors,
@@ -75,6 +49,13 @@
         'generateRandomNun': generateRandomNun
     };
 
-    window.load(onError, showWizards)
+    form.addEventListener('submit', function(evt) {
+       
+        evt.preventDefault();
+        window.save(onError, onSuccses, formData);
+        popup.classList.add('hidden');
+    })    
+
+    window.load(onError, showWizards);
 
 })();
