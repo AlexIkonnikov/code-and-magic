@@ -1,19 +1,12 @@
 'use strict';
-let ESC_CODE = 27;
-let ENTER_CODE = 13;
 
-let setup = document.querySelector('.setup');
-let setupOpen = document.querySelector('.setup-open');
-let setupClose = setup.querySelector('.setup-close');
-let inputName = setup.querySelector('.setup-user-name');
-let coatColor = setup.querySelector('.setup-wizard .wizard-coat');
-let eyesColor = setup.querySelector('.setup-wizard .wizard-eyes');
-
+(function() {
 
 let pool = document.querySelector('.setup-similar-list');
 let template = document.querySelector('#similar-wizard-template').content;
 let names = ['Иван', 'Хуан Себастья', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 let surnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+
 let coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 let eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
 
@@ -68,4 +61,10 @@ let showWizards = function (array) {
 
 showWizards(createArrayWizards());
 
+window.setup = {
+    'coatColors': coatColors,
+    'eyesColors': eyesColors,
+    'generateRandomNun': generateRandomNun
+};
 
+})();

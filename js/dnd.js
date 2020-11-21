@@ -1,6 +1,8 @@
+'use strict';
+
 (function() {
 
-let userPopupImg = setup.querySelector('.upload input');
+let userPopupImg = document.querySelector('.upload input');
 
 
 userPopupImg.addEventListener('mousedown', function(evt) {
@@ -26,8 +28,8 @@ userPopupImg.addEventListener('mousedown', function(evt) {
             y: moveEvt.clientY
         };
 
-        setup.style.top = (setup.offsetTop - shift.y) + 'px';
-        setup.style.left = (setup.offsetLeft - shift.x) + 'px';
+        window.setupWizard.setup.style.top = (window.setupWizard.setup.offsetTop - shift.y) + 'px';
+        window.setupWizard.setup.style.left = (window.setupWizard.setup.offsetLeft - shift.x) + 'px';
         drag = true;
     }
 

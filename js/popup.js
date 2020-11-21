@@ -1,21 +1,29 @@
+'use strict';
+
 (function() {
 
+    let ESC_CODE = 27;
+    let ENTER_CODE = 13;    
+    let inputName = document.querySelector('.setup-user-name');
+    let setupOpen = document.querySelector('.setup-open');
+    let setupClose = document.querySelector('.setup-close');
+
     function openSetupPopup () {
-        setup.classList.remove('hidden');
+        window.setupWizard.setup.classList.remove('hidden');
         setupOpen.removeEventListener('keydown', popupEnterPress);
         document.addEventListener('keydown', popupEscPress);
-        document.setupStartX = setup.offsetLeft;
-        document.setupStartY = setup.offsetTop;
+        document.setupStartX = window.setupWizard.setup.offsetLeft;
+        document.setupStartY = window.setupWizard.setup.offsetTop;
     }
     
     function closeSetupPopup () {
     
         if (inputName !== document.activeElement) {
-            setup.classList.add('hidden');
+            window.setupWizard.setup.classList.add('hidden');
             setupOpen.addEventListener('keydown', popupEnterPress);
             document.removeEventListener('keydown', popupEscPress);
-            setup.style.top = document.setupStartY + 'px';
-            setup.style.left = document.setupStartX + 'px';
+            window.setupWizard.setup.style.top = document.setupStartY + 'px';
+            window.setupWizard.setup.style.left = document.setupStartX + 'px';
         }
     }
     
