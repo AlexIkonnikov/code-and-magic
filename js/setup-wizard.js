@@ -20,18 +20,31 @@ let generateRandomNun = function (array) {
 
 };
 
+let lastTimer;
+
 function changeCoatColor () {
     let newColor = generateRandomNun( coatColors );
     coatColor.style.fill = newColor;
     inputCoatColor = newColor;
-    window.similar.onChangeCoat(newColor);
+    if(lastTimer) {
+        clearTimeout(lastTimer);
+    }
+    lastTimer = setTimeout(function() {
+        window.similar.onChangeCoat(newColor);
+    }, 400);
 };
+
 
 function changeEyesColor () {
     let newColor = generateRandomNun( eyesColors );
     eyesColor.style.fill = newColor;
     inputEyesColor = newColor;
-    window.similar.onChangeEyes(newColor);
+    if(lastTimer) {
+        clearTimeout(lastTimer);
+    }
+    lastTimer = setTimeout(function() {
+        window.similar.onChangeEyes(newColor);
+    }, 400);
 };
 
 function changefireballColor () {
@@ -56,6 +69,9 @@ fireballColor.addEventListener('click', function() {
 
 window.setupWizard = {
     'setup': setup,
+    'changeCoatColor': changeCoatColor,
+    'changeEyesColor': changeEyesColor
+
 };
 
 })();
